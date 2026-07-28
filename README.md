@@ -7,8 +7,8 @@ A custom ESPHome component that broadcasts BLE advertisement packets when a butt
 Add to your ESPHome YAML:
 
 ```yaml
-external\_components:
+external_components:
   - source: github://kenn-hawley/esphome-ble-button-advertiser
 
-ble\_button\_advertiser:
-  button\_pin: GPIO2
+ble_button_advertiser:
+  button_pin: GPIO2
