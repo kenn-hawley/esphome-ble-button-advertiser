@@ -2,21 +2,22 @@
 
 #include "esphome/core/component.h"
 #include "esphome/core/gpio.h"
+#include "esphome/core/automation.h"
 #include <esp_gap_ble_api.h>
 
 namespace esphome {
 namespace ble_button_advertiser {
 
-class BLEButtonAdvertiser : public Component {
+class BleButtonAdvertiser : public Component {
  public:
   void setup() override;
   void dump_config() override;
   
-  void set_button_pin(GPIOPin *pin) { button_pin_ = pin; }
+  void set_pin(GPIOPin *pin) { pin_ = pin; }
   void advertise_press();
 
  private:
-  GPIOPin *button_pin_{nullptr};
+  GPIOPin *pin_{nullptr};
   
   // BLE advertisement parameters
   esp_ble_adv_data_t adv_data_{};
@@ -25,6 +26,15 @@ class BLEButtonAdvertiser : public Component {
   // BLE event callback
   static void gap_event_handler(esp_gap_ble_cb_event_t event, 
                                  esp_ble_gap_cb_param_t *param);
+};
+
+class AdvertisePressAction : public Action<> {
+ public:
+  AdvertisePressAction(BleButtonAdvertiser *parent) : parent_(parent) {}
+  void play(Ts... x) override { parent_->advertise_press(); }
+
+ protected:
+  BleButtonAdvertiser *parent_;
 };
 
 }  // namespace ble_button_advertiser
