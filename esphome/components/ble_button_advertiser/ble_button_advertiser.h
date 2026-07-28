@@ -28,10 +28,11 @@ class BleButtonAdvertiser : public Component {
                                  esp_ble_gap_cb_param_t *param);
 };
 
-class AdvertisePressAction : public Action<> {
+template<typename... Ts>
+class AdvertisePressAction : public Action<Ts...> {
  public:
   explicit AdvertisePressAction(BleButtonAdvertiser *parent) : parent_(parent) {}
-  void play() override { parent_->advertise_press(); }
+  void play(Ts... x) override { parent_->advertise_press(); }
 
  protected:
   BleButtonAdvertiser *parent_;
