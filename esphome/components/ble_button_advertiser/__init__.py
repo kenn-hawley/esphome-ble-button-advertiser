@@ -1,28 +1,21 @@
-import esphome.codegen as cg
 import esphome.config_validation as cv
-from esphome.components import gpio
-from esphome.const import CONF_PIN, CONF_ID
+import esphome.codegen as cg
+from esphome import pins
+from esphome.const import CONF_ID
 
-CODEOWNERS = ["@kenn-hawley"]
-DEPENDENCIES = []
+ns = cg.esphome_ns.namespace("ble_button_advertiser")
+BleButtonAdvertiser = ns.class_("BleButtonAdvertiser", cg.Component)
 
-ble_button_advertiser_ns = cg.esphome_ns.namespace("ble_button_advertiser")
-BLEButtonAdvertiser = ble_button_advertiser_ns.class_(
-    "BLEButtonAdvertiser", cg.Component
-)
+CONF_BUTTON_PIN = "button_pin"
 
-CONFIG_SCHEMA = cv.Schema(
+CONFIG_SCHEMA = cv.COMPONENT_SCHEMA.extend(
     {
-        cv.GenerateID(): cv.declare_id(BLEButtonAdvertiser),
-        cv.Optional(CONF_PIN): gpio.gpio_pin_schema,
-    }
-).extend(cv.COMPONENT_SCHEMA)
-
+    cv.GenerateID(): cv.declare_id(BleButtonAdvertiser),
+    cv.Required(CONF_BUTTON_PIN): pins.gpio_input_pin_schema,
+})
 
 async def to_code(config):
-    var = cg.new_Pvt_var(config[cv.GenerateID()], BLEButtonAdvertiser)
+    var = cg.new_Pvariable(config[CONF_ID])
     await cg.register_component(var, config)
-
-    if CONF_PIN in config:
-        pin = await gpio.gpio_pin_to_code(config[CONF_PIN])
-        cg.add(var.set_button_pin(pin))
+    pin = await cg.gpio_pin_expression(config[CONF_BUTTON_PIN])
+    cg.add(var.set_button_pin(pin))
