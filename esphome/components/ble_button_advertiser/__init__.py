@@ -30,6 +30,7 @@ async def to_code(config):
     cv.Schema({
         cv.Required(cv.GenerateID()): cv.use_id(BleButtonAdvertiser),
     }),
+    synchronous=True
 )
 async def advertise_press_to_code(config, action_id, template_arg, args):
     paren = await cg.get_variable(config[cv.GenerateID()])
