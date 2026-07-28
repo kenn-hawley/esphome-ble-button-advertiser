@@ -30,8 +30,8 @@ class BleButtonAdvertiser : public Component {
 
 class AdvertisePressAction : public Action<> {
  public:
-  AdvertisePressAction(BleButtonAdvertiser *parent) : parent_(parent) {}
-  void play(Ts... x) override { parent_->advertise_press(); }
+  explicit AdvertisePressAction(BleButtonAdvertiser *parent) : parent_(parent) {}
+  void play() override { parent_->advertise_press(); }
 
  protected:
   BleButtonAdvertiser *parent_;
