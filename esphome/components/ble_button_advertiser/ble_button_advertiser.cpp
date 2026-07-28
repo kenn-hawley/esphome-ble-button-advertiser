@@ -9,7 +9,7 @@ namespace ble_button_advertiser {
 
 static const char *TAG = "ble_button_advertiser";
 
-void BLEButtonAdvertiser::setup() {
+void BleButtonAdvertiser::setup() {
   ESP_LOGI(TAG, "Initializing BLE Button Advertiser...");
   
   // Initialize BT controller with default config
@@ -58,7 +58,7 @@ void BLEButtonAdvertiser::setup() {
   ESP_LOGI(TAG, "BLE Button Advertiser setup complete");
 }
 
-void BLEButtonAdvertiser::advertise_press() {
+void BleButtonAdvertiser::advertise_press() {
   ESP_LOGI(TAG, "Button pressed - starting BLE advertisement");
   
   // Build advertisement data with manufacturer-specific data
@@ -103,7 +103,7 @@ void BLEButtonAdvertiser::advertise_press() {
   ESP_LOGI(TAG, "BLE advertisement started");
 }
 
-void BLEButtonAdvertiser::gap_event_handler(esp_gap_ble_cb_event_t event,
+void BleButtonAdvertiser::gap_event_handler(esp_gap_ble_cb_event_t event,
                                              esp_ble_gap_cb_param_t *param) {
   switch (event) {
     case ESP_GAP_BLE_ADV_DATA_SET_COMPLETE_EVT:
@@ -130,10 +130,10 @@ void BLEButtonAdvertiser::gap_event_handler(esp_gap_ble_cb_event_t event,
   }
 }
 
-void BLEButtonAdvertiser::dump_config() {
+void BleButtonAdvertiser::dump_config() {
   ESP_LOGCONFIG(TAG, "BLE Button Advertiser:");
-  if (button_pin_ != nullptr) {
-    LOG_PIN("  Button Pin: ", button_pin_);
+  if (pin_ != nullptr) {
+    LOG_PIN("  Button Pin: ", pin_);
   }
 }
 
