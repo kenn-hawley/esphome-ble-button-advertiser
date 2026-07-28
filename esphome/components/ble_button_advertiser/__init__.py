@@ -8,7 +8,7 @@ CONF_PIN = "pin"
 
 ns = cg.esphome_ns.namespace("ble_button_advertiser")
 BleButtonAdvertiser = ns.class_("BleButtonAdvertiser", cg.Component)
-AdvertisePressAction = ns.class_("AdvertisePressAction", cg.Action)
+AdvertisePressAction = ns.class_("AdvertisePressAction", automation.Action)
 
 CONFIG_SCHEMA = cv.COMPONENT_SCHEMA.extend({
     cv.GenerateID(): cv.declare_id(BleButtonAdvertiser),
