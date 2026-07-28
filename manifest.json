@@ -1,0 +1,8 @@
+{
+  "version": "1.0.0",
+  "documentation": "https://github.com/yourusername/esphome-ble-button-advertiser",
+  "dependencies": {
+    "esp32": "*"
+  },
+  "codeowners": ["@yourusername"]
+}
